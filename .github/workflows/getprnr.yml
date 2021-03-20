@@ -20,3 +20,7 @@ jobs:
         run: |
           git status
           git log -n 5
+      - name : GITHUB CONTEXT
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
