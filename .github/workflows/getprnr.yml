@@ -1,0 +1,22 @@
+name: GetPRNr
+
+on:
+  push:
+    branches:
+      main
+
+
+jobs:
+  get_commit:
+    name: Get commit SHA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Show commits
+        run: |
+          git status
+          git log -n 5
