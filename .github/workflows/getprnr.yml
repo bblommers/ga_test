@@ -5,7 +5,6 @@ on:
     branches:
       main
 
-
 jobs:
   get_commit:
     name: Get commit SHA
@@ -28,4 +27,9 @@ jobs:
         run: |
           msg="${{ github.event.commits[0].message }}"
           nr=$(grep -oP '\(#\K[0-9]+' <<< "$msg" | head -n 1)
-          echo $nr
+          if [ -z "$nr" ]
+          then
+            echo "PR nr not found in $msg"
+          else
+            echo "PR NR: $nr"
+          fi
