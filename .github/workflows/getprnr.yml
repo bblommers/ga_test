@@ -26,6 +26,6 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: pr nr
         run: |
-          commit="asd (#2)"
-          nr=$(grep -oP '\(#\K[0-9]+' <<< "$commit" | head -n 1)
+          msg=${{ github.event.commits[0].message }}
+          nr=$(grep -oP '\(#\K[0-9]+' <<< "$msg" | head -n 1)
           echo $nr
