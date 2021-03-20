@@ -31,6 +31,16 @@ jobs:
           if [ -z "$nr" ]
           then
             echo "PR nr not found in $msg"
+            echo "pr_found=false" >> $GITHUB_ENV
           else
             echo "PR NR: $nr"
+            echo "pr_nr=$nr" >> $GITHUB_ENV
+            echo "pr_found=true" >> $GITHUB_ENV
           fi
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v1
+        if: env.pr_found == 'true'
+        with:
+          issue-number: ${{ env.pr_nr }}
+          body: |
+            This comments comes from GA
