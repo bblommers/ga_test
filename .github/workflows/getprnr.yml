@@ -28,6 +28,10 @@ jobs:
         run: |
           len="${{ github.event.commits.length }}"
           echo "Length: $len"
+          for row in $(echo "${{ github.event.commits }}" | jq -r '.[] | @base64'); do
+            message="$(echo "$row" | base64 --decode | jq -r '.message')"
+            echo "$message"
+          done
           msg="${{ github.event.commits[0].message }}"
           nr=$(grep -oP '\(#\K[0-9]+' <<< "$msg" | head -n 1)
           if [ -z "$nr" ]
