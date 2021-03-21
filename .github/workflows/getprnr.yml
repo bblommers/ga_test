@@ -26,7 +26,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: pr nr
         run: |
-          len="${{ size(github.event.commits) }}"
+          len="${{ github.event.commits.length }}"
           echo "Length: $len"
           msg="${{ github.event.commits[0].message }}"
           nr=$(grep -oP '\(#\K[0-9]+' <<< "$msg" | head -n 1)
